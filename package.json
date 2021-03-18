@@ -2,14 +2,9 @@
   "name": "affective-state-profile",
   "version": "0.0.0",
   "scripts": {
-    "serve": "ng serve --prod -o",
-    "build@prod": "ng build --prod --output-path docs --base-href /affective-state-profile/",
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "serve@http": "http-server ./dist/{project-name} -c-1 -o",
+    "build@prod": "ng build --prod",
+    "build@release": "ng build --prod --output-path docs --base-href /affective-state-profile/"
   },
   "private": true,
   "dependencies": {

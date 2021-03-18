@@ -45,3 +45,6 @@ testem.log
 .DS_Store
 Thumbs.db
 node_modules
+
+# Application Files
+/docs/404.html
