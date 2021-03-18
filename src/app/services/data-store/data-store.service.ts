@@ -11,7 +11,9 @@ export class DataStoreService {
   constructor(
     private storage: StorageMap
     ) { 
+      // get local storage value and assign to variable 
       this.storage.get('labels').subscribe((labels: Array<String>) => {
+        //if local storage does not contain value, set one
         if(!labels) { 
           this.storage.set('labels', this.labels).subscribe(() => {});
           return;
@@ -25,13 +27,15 @@ export class DataStoreService {
     }
     
     pushLabel(label: string):void{
+      // update variable and push new variable value to local storage
       this.labels.push(label);
       this.storage.set('labels', this.labels).subscribe(() => {});
     }
     
     popLabel(): void{
       if(this.labels.length > 0){
-        this.labels.pop();
+        // update variable and push new variable value to local storage
+        this.labels.pop();        
         this.storage.set('labels', this.labels).subscribe(() => {});
       }
     }
