@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-md bg-light navbar-light fixed-top">
+    <div class="navbar-brand row mx-0">
+        <a class="text-dark" [routerLink]="['../dashboard']" routerLinkActive="router-link-active">
+            <fa-icon [icon]="faHome"></fa-icon>
+        </a>
+        <span class="px-3 h3">{{Title}}</span>
+    </div>
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div id="collapsibleNavbar" class="collapse navbar-collapse">
+        <ul class="navbar-nav text-right">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['../dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['../add-log']" routerLinkActive="router-link-active" >Add Log</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['../summary']" routerLinkActive="router-link-active" >Summary</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['../overview']" routerLinkActive="router-link-active" >Overview</a>
+            </li>
+            <li class="nav-item" *ngIf="true" >
+                <!-- <li class="nav-item" *ngIf="progressiveWebAppService.promptEvent" > -->
+                    <div class="d-flex h-100">
+                        <button type="button" class="btn btn-success btn-sm my-auto ml-auto" (click)="installProgressiveWebApp()">Install</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
