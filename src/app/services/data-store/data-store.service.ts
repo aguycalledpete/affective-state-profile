@@ -11,22 +11,26 @@ export class DataStoreService {
   constructor(
     private storage: StorageMap
     ) { 
-      this.storage.get('labels').subscribe((labels:Array<String>) => {
+      this.storage.get('labels').subscribe((labels: Array<String>) => {
+        if(!labels) { 
+          this.storage.set('labels', this.labels).subscribe(() => {});
+          return;
+        }
         this.labels = labels;
       });
     }
     
-    getLabels():Array<String>{
+    getLabels(): Array<String>{
       return this.labels;
     }
     
-    pushLabel(label :string):void{
+    pushLabel(label: string):void{
       this.labels.push(label);
       this.storage.set('labels', this.labels).subscribe(() => {});
     }
     
-    popLabel():void{
-      if(this.labels.length >0){
+    popLabel(): void{
+      if(this.labels.length > 0){
         this.labels.pop();
         this.storage.set('labels', this.labels).subscribe(() => {});
       }
