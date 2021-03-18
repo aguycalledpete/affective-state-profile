@@ -8,10 +8,6 @@ const routes: Routes =[
   {
     path:'',
     pathMatch: "full",
-    redirectTo:'first-page'
-  },
-  {
-    path:'first-page',
     component: FirstPageComponent
   },
   {
@@ -20,7 +16,7 @@ const routes: Routes =[
   },
   {
     path:'**',
-    redirectTo:'first-page'
+    redirectTo:''
   }
 ]
 
