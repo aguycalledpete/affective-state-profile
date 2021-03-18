@@ -15,10 +15,6 @@ export class FirstPageComponent implements OnInit {
     ngOnInit(): void {
     }
     
-    installProgressiveWebApp(): void {
-      this.progressiveWebAppService.promptEvent.prompt();
-    }
-    
     
   }
   
