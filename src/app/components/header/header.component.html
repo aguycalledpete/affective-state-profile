@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <span class="navbar-brand">Navbar</span>
+    
+    
+    <button class="navbar-toggler" type="button" (click)="isListOpen = !isListOpen">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="navbar-collapse" *ngIf="isListOpen">
+        <ul class="navbar-nav text-right">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./add-log']" routerLinkActive="router-link-active" >Add Log</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./summary']" routerLinkActive="router-link-active" >Summary</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./overview']" routerLinkActive="router-link-active" >Overview</a>
+            </li>
+        </ul>
+    </div>
+</nav>
