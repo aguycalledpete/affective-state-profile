@@ -1,2 +1,20 @@
 <app-header Title="Dashboard"></app-header>
-<p>dashboard works!</p>
+<div class="container">
+    <div class="row text-center pt-sm-5">
+        <div class="col-sm col-12 pt-sm-0 pt-5">
+            <button type="button" class="btn btn-primary btn-lg" [routerLink]="['../add-log']">
+                Add Log<fa-icon class="pl-2" [icon]="faPlus"></fa-icon>
+            </button>
+        </div>
+        <div class="col-sm col-12 pt-sm-0 pt-5">
+            <button type="button" class="btn btn-primary btn-lg" [routerLink]="['../summary']">
+                Summary<fa-icon class="pl-2" [icon]="faTable"></fa-icon>
+            </button>
+        </div>
+        <div class="col-sm col-12 pt-sm-0 pt-5">
+            <button type="button" class="btn btn-primary btn-lg" [routerLink]="['../overview']">
+                Overview<fa-icon class="pl-2" [icon]="faChartBar"></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>
