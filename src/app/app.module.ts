@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { FirstPageComponent } from './pages/first-page/first-page.component';
 import { SecondPageComponent } from './pages/second-page/second-page.component';
+import { DataDisplayComponent } from './components/data-display/data-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FirstPageComponent,
-    SecondPageComponent
+    SecondPageComponent,
+    DataDisplayComponent
   ],
   imports: [
     BrowserModule,
