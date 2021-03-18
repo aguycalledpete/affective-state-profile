@@ -9,18 +9,10 @@ import { DataStoreService } from 'src/app/services/data-store/data-store.service
 export class DataDisplayComponent implements OnInit {
   
   constructor(
-    public dataStoreService:DataStoreService
+    public dataStoreService : DataStoreService,
     ) { }
     
     ngOnInit(): void {
-    }
-    
-    addLabel():void {
-      this.dataStoreService.labels.push('label');
-    }
-    
-    dropLabel():void {
-      this.dataStoreService.labels.pop();
     }
     
   }

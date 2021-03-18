@@ -1,13 +1,13 @@
 <p>data-display works!</p>
 
-<button (click)="addLabel()">
+<button (click)="dataStoreService.pushLabel('label')">
     Add Label
 </button>
 
-<button (click)="dropLabel()">
+<button (click)="dataStoreService.popLabel()">
     drop Label
 </button>
 
-<div *ngFor="let label of dataStoreService.labels">
+<div *ngFor="let label of dataStoreService.getLabels()">
     <span>{{label}}</span>
 </div>
