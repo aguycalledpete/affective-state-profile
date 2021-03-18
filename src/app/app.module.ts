@@ -14,6 +14,7 @@ import { AddLogComponent } from './pages/add-log/add-log.component';
 import { LogsSummaryComponent } from './pages/logs-summary/logs-summary.component';
 import { LogsOverviewComponent } from './pages/logs-overview/logs-overview.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HeaderComponent } from './components/header/header.component';
   imports: [
     BrowserModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

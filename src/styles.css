@@ -2,3 +2,11 @@
 body{
     margin: 0;
 }
+
+.btn.btn-sm{
+    max-height: 30px !important;
+}
+
+button.btn:hover{
+    text-decoration: underline;
+}

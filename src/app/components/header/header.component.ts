@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { ProgressiveWebAppService } from '../../services/progressive-web-app/progressive-web-app.service';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isListOpen:boolean;
+  faHome = faHome;
   
-  constructor() { }
+  @Input() Title = '';  
   
-  ngOnInit(): void {
+  constructor(
+    public progressiveWebAppService : ProgressiveWebAppService
+    ) {}
+    
+    ngOnInit(): void {
+    }
+    
+    installProgressiveWebApp(): void {
+      this.progressiveWebAppService.promptEvent.prompt();
+    }
+    
   }
   
-}
