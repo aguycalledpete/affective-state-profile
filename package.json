@@ -2,8 +2,9 @@
   "name": "affective-state-profile",
   "version": "0.0.0",
   "scripts": {
+    "serve": "",
     "serve@http": "http-server ./dist/affective-state-profile -c-1 -o",
-    "build@prod": "ng build --prod",
+    "build@prod": "ng build --prod --watch",
     "build@release": "ng build --prod --output-path docs --base-href /affective-state-profile/"
   },
   "private": true,
