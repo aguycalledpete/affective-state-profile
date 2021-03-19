@@ -4,6 +4,10 @@ body{
     padding-top: 61px;
 }
 
+p{
+    margin-bottom: 0;
+}
+
 .btn.btn-sm{
     max-height: 30px !important;
 }

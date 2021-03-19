@@ -1,2 +1,80 @@
 <app-header Title="Add Log"></app-header>
-<p>add-log works!</p>
+
+
+<div class="container">
+    <div class="row pb-2">
+        <div class="col-12">
+            <h2>Event Logger</h2>
+        </div>
+        <div class="col-12">
+            <span>Enter the details of the event below to store it in your collection.</span>
+        </div>
+    </div>
+    
+    <!-- Title Input -->
+    <app-form-input Title="Title:">
+        <input type="text" class="form-control">
+    </app-form-input>
+    
+    <!-- Date Input -->
+    <app-form-input Title="Date:">
+        <div class="row">
+            <div class="col-12 pb-1">
+                <span class="pr-2">Use current date:</span> 
+                <p-checkbox [(ngModel)]="UseCurrentDate" binary="true"></p-checkbox>
+            </div>
+            <div class="col-12">
+                <p-calendar [(ngModel)]="EventLog.Date" [touchUI]="true" [maxDate]="CurrentDate" [readonlyInput]="true" [disabled]="UseCurrentDate" [style]="{'width':'100%'}"></p-calendar>
+            </div>
+        </div>
+    </app-form-input>
+    
+    <!-- Time Input -->
+    <app-form-input Title="Time:">
+        <div class="row">
+            <div class="col-12 pb-1">
+                <span class="pr-2">Use current time:</span> 
+                <p-checkbox [(ngModel)]="UseCurrentTime" binary="true"></p-checkbox>
+            </div>
+            <div class="col-12">
+                <p-calendar [(ngModel)]="EventLog.Time" [timeOnly]="true" [maxDate]="CurrentDate" [readonlyInput]="true" [disabled]="UseCurrentTime" [style]="{'width':'100%'}"></p-calendar>
+            </div>
+        </div>
+    </app-form-input>
+    
+    <!-- Valence Input -->
+    <app-form-input Title="{{'Level of Valence: ' + EventLog.ValenceLevel}}">
+        <div class="p-1">
+            <p-slider [(ngModel)]="EventLog.ValenceLevel" [min]="0" [max]="10" [step]="1" [animate]="true"></p-slider>
+        </div>
+        <div class="row">
+            <div class="col-6 small text-left">
+                <span>Sad</span>
+            </div>
+            <div class="col-6 small text-right">
+                <span>Happy</span>
+            </div>
+        </div> 
+    </app-form-input>
+    
+    <!-- Arousal Input -->
+    <app-form-input Title="{{'Level of Arousal: ' + EventLog.ArousalLevel}}">
+        <div class="p-1">
+            <p-slider [(ngModel)]="EventLog.ArousalLevel" [min]="0" [max]="10" [step]="1" [animate]="true"></p-slider>
+        </div>
+        <div class="row">
+            <div class="col-6 small text-left">
+                <span>Quiet</span>
+            </div>
+            <div class="col-6 small text-right">
+                <span>Active</span>
+            </div>
+        </div> 
+    </app-form-input>
+    
+    <div class="row py-2">
+        <div class="col-12 text-right">
+            <button class="btn btn-success" (click)="addLog()">Add Log</button>
+        </div>
+    </div>
+</div>
