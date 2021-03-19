@@ -1,43 +1,43 @@
 import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { EventLogDto } from 'src/app/dtos/event-log-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataStoreService {
   
-  private labels = new Array<String>();  
+  private EventLogCollection = new Array<EventLogDto>();  
   
   constructor(
     private storage: StorageMap
-    ) { 
+    ) { }
+    
+    reloadLogs() {
       // get local storage value and assign to variable 
-      this.storage.get('labels').subscribe((labels: Array<String>) => {
+      this.storage.get('EventLogCollection').subscribe((storedEventLogs: Array<EventLogDto>) => {
         //if local storage does not contain value, set one
-        if(!labels) { 
-          this.storage.set('labels', this.labels).subscribe(() => {});
+        if(!storedEventLogs) { 
+          this.storage.set('EventLogCollection', this.EventLogCollection).subscribe(() => {});
           return;
         }
-        this.labels = labels;
+        this.EventLogCollection = storedEventLogs;
+        console.log(this.EventLogCollection);
       });
     }
     
-    getLabels(): Array<String>{
-      return this.labels;
+    getLogs(): Array<EventLogDto>{
+      return this.EventLogCollection;
     }
     
-    pushLabel(label: string):void{
+    addLog(eventLog: EventLogDto):void{
       // update variable and push new variable value to local storage
-      this.labels.push(label);
-      this.storage.set('labels', this.labels).subscribe(() => {});
+      this.EventLogCollection.push(eventLog);
+      this.storage.set('EventLogCollection', this.EventLogCollection).subscribe(() => {});
     }
     
-    popLabel(): void{
-      if(this.labels.length > 0){
-        // update variable and push new variable value to local storage
-        this.labels.pop();        
-        this.storage.set('labels', this.labels).subscribe(() => {});
-      }
+    dump(){
+      this.storage.clear().subscribe(() => {});
     }
     
   }

@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 import { SliderModule } from 'primeng/slider';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
+import { SpinnerModule } from 'primeng/spinner';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -39,7 +41,8 @@ import { FormInputComponent } from './components/form-input/form-input.component
     FormsModule,
     SliderModule,
     CalendarModule,
-    CheckboxModule
+    CheckboxModule,
+    SpinnerModule
   ],
   providers: [
   ],
