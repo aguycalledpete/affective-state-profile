@@ -27,7 +27,6 @@ export class DataStoreService {
           return;
         }
         this.eventLogCollectionSubject.next(storedEventLogs);
-        console.log(this.eventLogCollectionSubject.value);
       });
     }
     

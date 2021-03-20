@@ -10,6 +10,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { SpinnerModule } from 'primeng/spinner';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -46,7 +47,8 @@ import { FormInputComponent } from './components/form-input/form-input.component
     CheckboxModule,
     SpinnerModule,
     ChartModule,
-    DropdownModule
+    DropdownModule,
+    TableModule
   ],
   providers: [
   ],

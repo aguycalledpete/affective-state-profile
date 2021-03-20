@@ -1,2 +1,33 @@
 <app-header Title="Summary"></app-header>
-<p>logs-summary works!</p>
+
+<div class="row py-3">
+    <div class="col-12 text-center">
+    </div>
+    <div class="col-12 text-center">
+        <span class="pr-2">Displaying data for:</span>
+        <p-dropdown [options]="Dates" [(ngModel)]="SelectedDate" (ngModelChange)="dateChanged()" optionLabel="name"></p-dropdown>
+    </div>
+</div>
+
+<div class="m-3">
+    <div class="border rounded">
+        <p-table [value]="LogsForDate">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Event Title</th>
+                    <th>Time</th>
+                    <th>Valence Level</th>
+                    <th>Arousal Level</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-log>
+                <tr>
+                    <td>{{log.Title}}</td>
+                    <td>{{log.DateTime.toLocaleTimeString()}}</td>
+                    <td>{{log.ValenceLevel}}</td>
+                    <td>{{log.ArousalLevel}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
