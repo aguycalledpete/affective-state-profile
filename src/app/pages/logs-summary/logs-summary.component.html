@@ -42,7 +42,8 @@
             <span class="font-weight-bold">Nature of Event:</span>
         </div>
         <div class="col-12">
-            <span>{{SelectedLog?.NatureOfEvent}}</span>
+            <span *ngIf="SelectedLog?.NatureOfEvent">{{SelectedLog?.NatureOfEvent}}</span>
+            <span *ngIf="!SelectedLog?.NatureOfEvent">N/A</span>
         </div>
     </div>
     <div class="row pb-2">
@@ -50,7 +51,8 @@
             <span class="font-weight-bold">Activities Involved:</span>
         </div>
         <div class="col-12">
-            <span>{{SelectedLog?.ActivitiesInvolved}}</span>
+            <span *ngIf="SelectedLog?.ActivitiesInvolved">{{SelectedLog?.ActivitiesInvolved}}</span>
+            <span *ngIf="!SelectedLog?.ActivitiesInvolved">N/A</span>
         </div>
     </div>
     <div class="row">
