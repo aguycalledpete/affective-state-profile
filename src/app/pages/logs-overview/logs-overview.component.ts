@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { EventLogDto } from 'src/app/dtos/event-log-dto';
 import { LabelValueDto } from 'src/app/dtos/label-value-dto';
 import { DataStoreService } from 'src/app/services/data-store/data-store.service';
@@ -7,33 +8,42 @@ import { DataStoreService } from 'src/app/services/data-store/data-store.service
   templateUrl: './logs-overview.component.html',
   styleUrls: ['./logs-overview.component.css']
 })
-export class LogsOverviewComponent implements OnInit {
+export class LogsOverviewComponent implements OnInit, OnDestroy {
   
-  TimesOfTheDay = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
+  readonly TimesOfTheDay = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
   ChartData: any;
   ChartOptions: any;
   Dates = new Array<LabelValueDto>();
   SelectedDate: LabelValueDto;
   private logs: EventLogDto[];
+  Subscriptions = new Array<Subscription>();
   
-  constructor(
-    private dataStore: DataStoreService
-    ) { 
-      this.dataStore.reloadLogs();
-    }
-    
-    ngOnInit(): void {
+  constructor(private dataStore: DataStoreService) {       
+    this.dataStore.reloadLogs();
+  }
+  
+  ngOnDestroy(): void {
+    this.Subscriptions.forEach(sub => sub.unsubscribe());
+  }
+  
+  ngOnInit(): void {
+    this.Subscriptions.push(
       this.dataStore.getLogs().subscribe(_logs => {
         this.logs = _logs;
+        if(this.logs.length === 0){
+          return;
+        }
+        
+        // sort logs by date
+        this.logs.sort((a, b) => b.DateTime.getTime() - a.DateTime.getTime());
+        
         this.setDateDropdown();
         this.setChartOptions();
         this.setChartData();
-      });
+      }));
     }
     
     setDateDropdown(){
-      // sort logs by date
-      this.logs.sort((a, b) => b.DateTime.getTime() - a.DateTime.getTime());
       // add log dates to dropdown
       this.logs.forEach(log => {
         const dateString = log.DateTime.toLocaleDateString();
@@ -59,18 +69,36 @@ export class LogsOverviewComponent implements OnInit {
         datasets: [
           {
             label: 'Valence',
-            data: this.getYAxis(true),
+            data: this.getData(true),
             fill: false,
             borderColor: '#42A5F5'
           },
           {
             label: 'Arousal',
-            data: this.getYAxis(false),
+            data: this.getData(false),
             fill: false,
             borderColor: '#FFA726'
           }
         ]
       }
+    }
+    
+    getData(isValence: boolean): number[] {
+      let data = new Array<number>();
+      
+      const selectedDateLogs = this.logs.filter(log => log.DateTime.toLocaleDateString() === this.SelectedDate.name);
+      
+      this.TimesOfTheDay.forEach(time => {
+        const logsForTime = selectedDateLogs.filter(log => log.DateTime.getHours().toString() === time);
+        
+        if(logsForTime.length !== 0){
+          logsForTime.forEach(log => data.push(isValence ? log.ValenceLevel : log.ArousalLevel))
+        }else{
+          data.push(0);
+        }
+      });
+      
+      return data;
     }
     
     setChartOptions(){
@@ -95,19 +123,9 @@ export class LogsOverviewComponent implements OnInit {
       };
     }
     
-    getXAxis(): string[] {
-      const result = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'February', 'March', 'April', 'May', 'June', 'July'];
-      return result;
+    dateChanged(){
+      this.setChartData();
     }
-    
-    getYAxis(isValence: boolean): number[] {
-      let result = [65, null, null, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40];
-      if(isValence){
-        result = [65,  81, 56, 55, 40, null, 59, 80, 81, null, 56, 55, 40];
-      }
-      return result;
-    }
-    
   }
   
   
