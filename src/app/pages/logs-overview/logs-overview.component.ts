@@ -32,6 +32,9 @@ export class LogsOverviewComponent implements OnInit {
     }
     
     setDateDropdown(){
+      // sort logs by date
+      this.logs.sort((a, b) => b.DateTime.getTime() - a.DateTime.getTime());
+      // add log dates to dropdown
       this.logs.forEach(log => {
         const dateString = log.DateTime.toLocaleDateString();
         if(this.Dates.some(date => date.name === dateString)) {
