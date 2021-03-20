@@ -5,7 +5,7 @@
     </div>
     <div class="col-12 text-center">
         <span class="pr-2">Displaying data for:</span>
-        <p-dropdown [options]="Dates" [(ngModel)]="SelectedDate" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="Dates" [(ngModel)]="SelectedDate" (ngModelChange)="dateChanged()" optionLabel="name"></p-dropdown>
     </div>
 </div>
 
