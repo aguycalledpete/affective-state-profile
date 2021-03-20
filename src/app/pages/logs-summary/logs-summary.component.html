@@ -14,20 +14,54 @@
         <p-table [value]="LogsForDate">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Event Title</th>
-                    <th>Time</th>
-                    <th>Valence Level</th>
-                    <th>Arousal Level</th>
+                    <th class="p-2">Event Title</th>
+                    <th class="p-2">Time</th>
+                    <th class="p-2 text-center">Valence Level</th>
+                    <th class="p-2 text-center">Arousal Level</th>
+                    <th class="p-2 text-center">More Details</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-log>
                 <tr>
-                    <td>{{log.Title}}</td>
-                    <td>{{log.DateTime.toLocaleTimeString()}}</td>
-                    <td>{{log.ValenceLevel}}</td>
-                    <td>{{log.ArousalLevel}}</td>
-                </tr>
+                    <td class="p-2">{{log.Title}}</td>
+                    <td class="p-2">{{log.DateTime.toLocaleTimeString()}}</td>
+                    <td class="p-2 text-center">{{log.ValenceLevel}}</td>
+                    <td class="p-2 text-center">{{log.ArousalLevel}}</td>
+                    <td class="p-2 text-center">
+                        <button *ngIf="log.NatureOfEvent || log.ActivitiesInvolved || log.LevelOfSocialInteractions > 0" type="button" class="btn btn-sm btn-primary" (click)="showModalDialog(log)"><fa-icon [icon]="faExternalLinkAlt"></fa-icon></button>    
+                    </td>
+                </tr>                
             </ng-template>
         </p-table>
     </div>
 </div>
+
+<p-dialog header="Header" [(visible)]="DisplayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="row pb-2">
+        <div class="col-12">
+            <span class="font-weight-bold">Nature of Event:</span>
+        </div>
+        <div class="col-12">
+            <span>{{SelectedLog?.NatureOfEvent}}</span>
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-12">
+            <span class="font-weight-bold">Activities Involved:</span>
+        </div>
+        <div class="col-12">
+            <span>{{SelectedLog?.ActivitiesInvolved}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <span class="font-weight-bold">Level of Social Interactions:</span>
+        </div>
+        <div class="col-12">
+            <span>{{SelectedLog?.LevelOfSocialInteractions}}</span>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="DisplayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

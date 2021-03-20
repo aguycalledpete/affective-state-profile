@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { EventLogDto } from 'src/app/dtos/event-log-dto';
 import { LabelValueDto } from 'src/app/dtos/label-value-dto';
@@ -9,12 +10,14 @@ import { DataStoreService } from 'src/app/services/data-store/data-store.service
   styleUrls: ['./logs-summary.component.css']
 })
 export class LogsSummaryComponent implements OnInit, OnDestroy {
-  
+  faExternalLinkAlt = faExternalLinkAlt
   Subscriptions = new Array<Subscription>();
   Logs: EventLogDto[];
   LogsForDate: EventLogDto[];
   Dates = new Array<LabelValueDto>();
   SelectedDate: LabelValueDto;
+  DisplayModal: boolean;
+  SelectedLog: EventLogDto;
   
   constructor(
     private dataStore: DataStoreService
@@ -67,6 +70,11 @@ export class LogsSummaryComponent implements OnInit, OnDestroy {
       
       dateChanged(){
         this.setLogsForDate();
+      }
+      
+      showModalDialog(log: EventLogDto){
+        this.SelectedLog = log;        
+        this.DisplayModal = true;
       }
     }
     

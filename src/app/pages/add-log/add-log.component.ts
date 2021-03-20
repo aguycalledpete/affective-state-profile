@@ -67,6 +67,14 @@ export class AddLogComponent implements OnInit {
       }
     }
     
+    updateSocialLevel(isIncrease: boolean){
+      if(isIncrease && this.EventLog.LevelOfSocialInteractions != 10){
+        this.EventLog.LevelOfSocialInteractions++;
+      }else if(!isIncrease && this.EventLog.LevelOfSocialInteractions != 0){
+        this.EventLog.LevelOfSocialInteractions--;
+      }
+    }
+    
     async addLog() {
       if (!this.isLogValid()) {
         alert("A validation error occurred. Please check the event details are correct.");
