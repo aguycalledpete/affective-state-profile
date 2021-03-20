@@ -12,6 +12,7 @@ import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { AccordionModule } from 'primeng/accordion';
+import { DialogModule } from 'primeng/dialog';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -50,7 +51,8 @@ import { FormInputComponent } from './components/form-input/form-input.component
     ChartModule,
     DropdownModule,
     TableModule,
-    AccordionModule
+    AccordionModule,
+    DialogModule
   ],
   providers: [
   ],
