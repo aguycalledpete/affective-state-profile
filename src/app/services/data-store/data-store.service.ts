@@ -36,13 +36,11 @@ export class DataStoreService {
     }
     
     addLog(eventLog: EventLogDto):void{
-      this.getLogs().subscribe(currentLogs =>{
-        // update variable and push new variable value to local storage
-        const newLogs = currentLogs;
-        newLogs.push(eventLog);
-        this.eventLogCollectionSubject.next(newLogs);
-        this.storage.set('EventLogCollection', newLogs).subscribe(() => {});
-      });
+      // update variable and push new variable value to local storage
+      const newLogs = this.eventLogCollectionSubject.value;
+      newLogs.push(eventLog);
+      this.eventLogCollectionSubject.next(newLogs);
+      this.storage.set('EventLogCollection', newLogs).subscribe(() => {});
     }
     
     dump(){

@@ -29,9 +29,6 @@
             <div class="col-12">
                 <p-calendar [(ngModel)]="InputDate" [touchUI]="true" [maxDate]="CurrentDate" [readonlyInput]="true" [disabled]="UseCurrentDate" [style]="{'width':'100%'}"></p-calendar>
             </div>
-            <ng-container *ngIf="ShowValidation && IsInvalidTime">
-                <ng-container *ngTemplateOutlet="validationMessage; context:{ message : 'Please select a valid time.'}"></ng-container>
-            </ng-container>
         </div>
     </app-form-input>
     
@@ -44,6 +41,11 @@
             </div>
             <div class="col-12">
                 <p-calendar [(ngModel)]="InputTime" [timeOnly]="true" [readonlyInput]="true" [disabled]="UseCurrentTime" [style]="{'width':'100%'}"></p-calendar>
+            </div>
+            <div class="col-12">
+                <ng-container *ngIf="ShowValidation && IsInvalidTime">
+                    <ng-container *ngTemplateOutlet="validationMessage; context:{ message : 'Please select a valid time.'}"></ng-container>
+                </ng-container>
             </div>
         </div>
     </app-form-input>

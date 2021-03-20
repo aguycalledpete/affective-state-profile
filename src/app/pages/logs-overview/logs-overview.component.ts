@@ -34,12 +34,13 @@ export class LogsOverviewComponent implements OnInit {
     setDateDropdown(){
       this.logs.forEach(log => {
         const dateString = log.DateTime.toLocaleDateString();
-        if(this.Dates.length === 0 || this.Dates.some(date => date.name !== dateString)) {
-          const labelValue = new LabelValueDto();
-          labelValue.name = dateString;
-          labelValue.code = dateString;
-          this.Dates.push(labelValue);
+        if(this.Dates.some(date => date.name === dateString)) {
+          return;
         }
+        const labelValue = new LabelValueDto();
+        labelValue.name = dateString;
+        labelValue.code = dateString;
+        this.Dates.push(labelValue);
       });
       
       if(!this.SelectedDate){
