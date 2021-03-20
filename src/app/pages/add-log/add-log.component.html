@@ -106,6 +106,39 @@
         </div> 
     </app-form-input>
     
+    <!-- Additional Details -->
+    <p-accordion>
+        <p-accordionTab header="Additional Details">
+            <!-- Nature of Event Input -->
+            <app-form-input Title="Nature of Event:">
+                <textarea class="form-control" cols="10" rows="1" [(ngModel)]="EventLog.NatureOfEvent"></textarea>
+            </app-form-input>
+            <!-- Activities Involved Input -->
+            <app-form-input Title="Activities Involved:">
+                <textarea class="form-control" cols="10" rows="1" [(ngModel)]="EventLog.ActivitiesInvolved"></textarea>
+            </app-form-input>
+            <!-- Level Of Social Interactions Input -->
+            <app-form-input Title="Level Of Social Interactions:">
+                <div class="row">
+                    <div class="col-12 pb-2 text-center">
+                        <button class="btn btn-sm btn-info" (click)="updateSocialLevel(false)">
+                            <fa-icon [icon]="faMinus"></fa-icon>
+                        </button>                
+                        <span class="px-3">{{EventLog.LevelOfSocialInteractions}}</span>
+                        <button class="btn btn-sm btn-info" (click)="updateSocialLevel(true)">  
+                            <fa-icon [icon]="faPlus"></fa-icon>
+                        </button>                
+                    </div>
+                    <div class="col-12">
+                        <div class="p-1">
+                            <p-slider [(ngModel)]="EventLog.LevelOfSocialInteractions" [min]="0" [max]="10" [step]="1" [animate]="true"></p-slider>
+                        </div>
+                    </div> 
+                </div> 
+            </app-form-input>
+        </p-accordionTab>   
+    </p-accordion>      
+    
     <div class="row py-2">
         <div class="col-12 text-right">
             <button class="btn btn-success" (click)="addLog()">

@@ -11,6 +11,7 @@ import { SpinnerModule } from 'primeng/spinner';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import { AccordionModule } from 'primeng/accordion';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -48,7 +49,8 @@ import { FormInputComponent } from './components/form-input/form-input.component
     SpinnerModule,
     ChartModule,
     DropdownModule,
-    TableModule
+    TableModule,
+    AccordionModule
   ],
   providers: [
   ],
