@@ -10,7 +10,7 @@ export class LogsSummaryComponent implements OnInit {
   constructor(
     private dataStore: DataStoreService
     ) { 
-      dataStore.reloadLogs();
+      this.dataStore.reloadLogs();
     }
     
     ngOnInit(): void {

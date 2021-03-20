@@ -14,6 +14,7 @@ export class AddLogComponent implements OnInit {
   
   EventLog: EventLogDto;
   ShowValidation: boolean;
+  IsInvalidTime: boolean;
   UseCurrentDate = true;
   UseCurrentTime = true;
   CurrentDate: Date;
@@ -24,7 +25,7 @@ export class AddLogComponent implements OnInit {
   constructor(
     private dataStore: DataStoreService
     ) { 
-      dataStore.reloadLogs();
+      this.dataStore.reloadLogs();
     }
     
     ngOnInit(): void {
@@ -99,6 +100,11 @@ export class AddLogComponent implements OnInit {
       this.EventLog.DateTime.setHours(this.InputTime.getHours());
       this.EventLog.DateTime.setMinutes(this.InputTime.getMinutes());
       this.EventLog.DateTime.setSeconds(this.InputTime.getSeconds());
+      
+      this.IsInvalidTime = this.EventLog.DateTime.getTime() > this.CurrentDate.getTime();
+      if(this.IsInvalidTime){
+        return false;
+      }
       
       return true;
     }

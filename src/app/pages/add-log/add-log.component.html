@@ -16,8 +16,7 @@
         <input type="text" class="form-control" placeholder="Title of event" [(ngModel)]="EventLog.Title" [ngClass]="{'border-danger': ShowValidation && !EventLog.Title}">
         <ng-container *ngIf="ShowValidation && !EventLog.Title">
             <ng-container *ngTemplateOutlet="validationMessage; context:{ message : 'Please enter a title.'}"></ng-container>
-        </ng-container>
-        
+        </ng-container>        
     </app-form-input>
     
     <!-- Date Input -->
@@ -30,6 +29,9 @@
             <div class="col-12">
                 <p-calendar [(ngModel)]="InputDate" [touchUI]="true" [maxDate]="CurrentDate" [readonlyInput]="true" [disabled]="UseCurrentDate" [style]="{'width':'100%'}"></p-calendar>
             </div>
+            <ng-container *ngIf="ShowValidation && IsInvalidTime">
+                <ng-container *ngTemplateOutlet="validationMessage; context:{ message : 'Please select a valid time.'}"></ng-container>
+            </ng-container>
         </div>
     </app-form-input>
     
@@ -41,7 +43,7 @@
                 <p-checkbox [(ngModel)]="UseCurrentTime" binary="true"></p-checkbox>
             </div>
             <div class="col-12">
-                <p-calendar [(ngModel)]="InputTime" [timeOnly]="true" [maxDate]="CurrentDate" [readonlyInput]="true" [disabled]="UseCurrentTime" [style]="{'width':'100%'}"></p-calendar>
+                <p-calendar [(ngModel)]="InputTime" [timeOnly]="true" [readonlyInput]="true" [disabled]="UseCurrentTime" [style]="{'width':'100%'}"></p-calendar>
             </div>
         </div>
     </app-form-input>

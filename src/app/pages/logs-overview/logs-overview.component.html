@@ -1,2 +1,16 @@
 <app-header Title="Overview"></app-header>
-<p>logs-overview works!</p>
+
+<div class="row py-3">
+    <div class="col-12 text-center">
+    </div>
+    <div class="col-12 text-center">
+        <span class="pr-2">Displaying data for:</span>
+        <p-dropdown [options]="Dates" [(ngModel)]="SelectedDate" optionLabel="name"></p-dropdown>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <p-chart type="line" [data]="ChartData" [options]="ChartOptions"></p-chart>
+    </div>
+</div>

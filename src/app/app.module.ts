@@ -8,6 +8,8 @@ import { SliderModule } from 'primeng/slider';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { SpinnerModule } from 'primeng/spinner';
+import { ChartModule } from 'primeng/chart';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -42,7 +44,9 @@ import { FormInputComponent } from './components/form-input/form-input.component
     SliderModule,
     CalendarModule,
     CheckboxModule,
-    SpinnerModule
+    SpinnerModule,
+    ChartModule,
+    DropdownModule
   ],
   providers: [
   ],

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { EventLogDto } from 'src/app/dtos/event-log-dto';
 
 @Injectable({
@@ -7,33 +8,41 @@ import { EventLogDto } from 'src/app/dtos/event-log-dto';
 })
 export class DataStoreService {
   
-  private EventLogCollection = new Array<EventLogDto>();  
+  private eventLogCollection: Observable<Array<EventLogDto>>;
+  private eventLogCollectionSubject: BehaviorSubject<Array<EventLogDto>>;
   
   constructor(
     private storage: StorageMap
-    ) { }
+    ) { 
+      this.eventLogCollectionSubject = new BehaviorSubject<Array<EventLogDto>>(new Array<EventLogDto>());
+      this.eventLogCollection = this.eventLogCollectionSubject.asObservable();
+    }
     
     reloadLogs() {
       // get local storage value and assign to variable 
       this.storage.get('EventLogCollection').subscribe((storedEventLogs: Array<EventLogDto>) => {
         //if local storage does not contain value, set one
         if(!storedEventLogs) { 
-          this.storage.set('EventLogCollection', this.EventLogCollection).subscribe(() => {});
+          this.storage.set('EventLogCollection', this.eventLogCollectionSubject.value).subscribe(() => {});
           return;
         }
-        this.EventLogCollection = storedEventLogs;
-        console.log(this.EventLogCollection);
+        this.eventLogCollectionSubject.next(storedEventLogs);
+        console.log(this.eventLogCollectionSubject.value);
       });
     }
     
-    getLogs(): Array<EventLogDto>{
-      return this.EventLogCollection;
+    getLogs(): Observable<Array<EventLogDto>>{
+      return this.eventLogCollection;
     }
     
     addLog(eventLog: EventLogDto):void{
-      // update variable and push new variable value to local storage
-      this.EventLogCollection.push(eventLog);
-      this.storage.set('EventLogCollection', this.EventLogCollection).subscribe(() => {});
+      this.getLogs().subscribe(currentLogs =>{
+        // update variable and push new variable value to local storage
+        const newLogs = currentLogs;
+        newLogs.push(eventLog);
+        this.eventLogCollectionSubject.next(newLogs);
+        this.storage.set('EventLogCollection', newLogs).subscribe(() => {});
+      });
     }
     
     dump(){
