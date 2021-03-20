@@ -1,43 +1,49 @@
 import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { EventLogDto } from 'src/app/dtos/event-log-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataStoreService {
   
-  private labels = new Array<String>();  
+  private eventLogCollection: Observable<Array<EventLogDto>>;
+  private eventLogCollectionSubject: BehaviorSubject<Array<EventLogDto>>;
   
   constructor(
     private storage: StorageMap
     ) { 
+      this.eventLogCollectionSubject = new BehaviorSubject<Array<EventLogDto>>(new Array<EventLogDto>());
+      this.eventLogCollection = this.eventLogCollectionSubject.asObservable();
+    }
+    
+    reloadLogs() {
       // get local storage value and assign to variable 
-      this.storage.get('labels').subscribe((labels: Array<String>) => {
+      this.storage.get('EventLogCollection').subscribe((storedEventLogs: Array<EventLogDto>) => {
         //if local storage does not contain value, set one
-        if(!labels) { 
-          this.storage.set('labels', this.labels).subscribe(() => {});
+        if(!storedEventLogs) { 
+          this.storage.set('EventLogCollection', this.eventLogCollectionSubject.value).subscribe(() => {});
           return;
         }
-        this.labels = labels;
+        this.eventLogCollectionSubject.next(storedEventLogs);
       });
     }
     
-    getLabels(): Array<String>{
-      return this.labels;
+    getLogs(): Observable<Array<EventLogDto>>{
+      return this.eventLogCollection;
     }
     
-    pushLabel(label: string):void{
+    addLog(eventLog: EventLogDto):void{
       // update variable and push new variable value to local storage
-      this.labels.push(label);
-      this.storage.set('labels', this.labels).subscribe(() => {});
+      const newLogs = this.eventLogCollectionSubject.value;
+      newLogs.push(eventLog);
+      this.eventLogCollectionSubject.next(newLogs);
+      this.storage.set('EventLogCollection', newLogs).subscribe(() => {});
     }
     
-    popLabel(): void{
-      if(this.labels.length > 0){
-        // update variable and push new variable value to local storage
-        this.labels.pop();        
-        this.storage.set('labels', this.labels).subscribe(() => {});
-      }
+    dump(){
+      this.storage.clear().subscribe(() => {});
     }
     
   }

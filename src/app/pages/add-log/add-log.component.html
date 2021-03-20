@@ -1,2 +1,120 @@
 <app-header Title="Add Log"></app-header>
-<p>add-log works!</p>
+
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-12">
+            <h2>Event Logger</h2>
+        </div>
+        <div class="col-12">
+            <span>Enter the details of the event below to store it in your collection.</span>
+        </div>
+    </div>
+    
+    <!-- Title Input -->
+    <app-form-input Title="Title:">
+        <input type="text" class="form-control" placeholder="Title of event" [(ngModel)]="EventLog.Title" [ngClass]="{'border-danger': ShowValidation && !EventLog.Title}">
+        <ng-container *ngIf="ShowValidation && !EventLog.Title">
+            <ng-container *ngTemplateOutlet="validationMessage; context:{ message : 'Please enter a title.'}"></ng-container>
+        </ng-container>        
+    </app-form-input>
+    
+    <!-- Date Input -->
+    <app-form-input Title="Date:">
+        <div class="row">
+            <div class="col-12 pb-1">
+                <span class="pr-2">Use current date:</span> 
+                <p-checkbox [(ngModel)]="UseCurrentDate" binary="true"></p-checkbox>
+            </div>
+            <div class="col-12">
+                <p-calendar [(ngModel)]="InputDate" [touchUI]="true" [maxDate]="CurrentDate" [readonlyInput]="true" [disabled]="UseCurrentDate" [style]="{'width':'100%'}"></p-calendar>
+            </div>
+        </div>
+    </app-form-input>
+    
+    <!-- Time Input -->
+    <app-form-input Title="Time:">
+        <div class="row">
+            <div class="col-12 pb-1">
+                <span class="pr-2">Use current time:</span> 
+                <p-checkbox [(ngModel)]="UseCurrentTime" binary="true"></p-checkbox>
+            </div>
+            <div class="col-12">
+                <p-calendar [(ngModel)]="InputTime" [timeOnly]="true" [readonlyInput]="true" [disabled]="UseCurrentTime" [style]="{'width':'100%'}"></p-calendar>
+            </div>
+            <div class="col-12">
+                <ng-container *ngIf="ShowValidation && IsInvalidTime">
+                    <ng-container *ngTemplateOutlet="validationMessage; context:{ message : 'Please select a valid time.'}"></ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </app-form-input>
+    
+    <!-- Valence Input -->
+    <app-form-input Title="Level of Valence:">
+        <div class="row">
+            <div class="col-12 pb-2 text-center">
+                <button class="btn btn-sm btn-info" (click)="updateValenceLevel(false)">
+                    <fa-icon [icon]="faMinus"></fa-icon>
+                </button>                
+                <span class="px-3">{{EventLog.ValenceLevel}}</span>
+                <button class="btn btn-sm btn-info" (click)="updateValenceLevel(true)">  
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                </button>                
+            </div>
+            <div class="col-12">
+                <div class="p-1">
+                    <p-slider [(ngModel)]="EventLog.ValenceLevel" [min]="0" [max]="10" [step]="1" [animate]="true"></p-slider>
+                </div>
+                <div class="row">
+                    <div class="col-6 small text-left">
+                        <span>Sad</span>
+                    </div>
+                    <div class="col-6 small text-right">
+                        <span>Happy</span>
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </app-form-input>
+    
+    <!-- Arousal Input -->
+    <app-form-input Title="Level of Arousal:">
+        <div class="row">
+            <div class="col-12 pb-2 text-center">
+                <button class="btn btn-sm btn-info" (click)="updateArousalLevel(false)">
+                    <fa-icon [icon]="faMinus"></fa-icon>
+                </button>                
+                <span class="px-3">{{EventLog.ArousalLevel}}</span>
+                <button class="btn btn-sm btn-info" (click)="updateArousalLevel(true)">  
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                </button>                
+            </div>
+            <div class="col-12">
+                <div class="p-1">
+                    <p-slider [(ngModel)]="EventLog.ArousalLevel" [min]="0" [max]="10" [step]="1" [animate]="true"></p-slider>
+                </div>
+                <div class="row">
+                    <div class="col-6 small text-left">
+                        <span>Quiet</span>
+                    </div>
+                    <div class="col-6 small text-right">
+                        <span>Active</span>
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </app-form-input>
+    
+    <div class="row py-2">
+        <div class="col-12 text-right">
+            <button class="btn btn-success" (click)="addLog()">
+                Add Log
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #validationMessage let-message="message">
+    <div class="alert-danger rounded mt-1 py-1 px-2 small">{{message}}</div>   
+</ng-template>

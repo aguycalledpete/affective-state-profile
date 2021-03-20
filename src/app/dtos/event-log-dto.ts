@@ -1,3 +1,6 @@
 export class EventLogDto {
-    value : string
+    Title : string;
+    DateTime : Date;
+    ValenceLevel : number = 5;
+    ArousalLevel : number = 5;
 }
