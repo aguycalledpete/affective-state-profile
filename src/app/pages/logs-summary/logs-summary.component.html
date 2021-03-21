@@ -1,6 +1,6 @@
 <app-header Title="Summary"></app-header>
 
-<div class="row py-3">
+<div class="row m-0 py-3">
     <div class="col-12 text-center">
     </div>
     <div class="col-12 text-center">
@@ -9,13 +9,12 @@
     </div>
 </div>
 
-<div class="m-3">
+<div class="m-2">
     <div class="border rounded">
         <p-table [value]="LogsForDate">
             <ng-template pTemplate="header">
                 <tr>
                     <th class="p-2">Event Title</th>
-                    <th class="p-2">Time</th>
                     <th class="p-2 text-center">Valence Level</th>
                     <th class="p-2 text-center">Arousal Level</th>
                     <th class="p-2 text-center">More Details</th>
@@ -23,12 +22,11 @@
             </ng-template>
             <ng-template pTemplate="body" let-log>
                 <tr>
-                    <td class="p-2">{{log.Title}}</td>
-                    <td class="p-2">{{log.DateTime.toLocaleTimeString()}}</td>
+                    <td class="p-2 text-wrap">{{log.Title}}</td>
                     <td class="p-2 text-center">{{log.ValenceLevel}}</td>
                     <td class="p-2 text-center">{{log.ArousalLevel}}</td>
                     <td class="p-2 text-center">
-                        <button *ngIf="log.NatureOfEvent || log.ActivitiesInvolved || log.LevelOfSocialInteractions > 0" type="button" class="btn btn-sm btn-primary" (click)="showModalDialog(log)"><fa-icon [icon]="faExternalLinkAlt"></fa-icon></button>    
+                        <button type="button" class="btn btn-sm btn-primary" (click)="showModalDialog(log)"><fa-icon [icon]="faExternalLinkAlt"></fa-icon></button>    
                     </td>
                 </tr>                
             </ng-template>
@@ -37,6 +35,14 @@
 </div>
 
 <p-dialog header="Header" [(visible)]="DisplayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="row pb-2">
+        <div class="col-12">
+            <span class="font-weight-bold">Time of Event:</span>
+        </div>
+        <div class="col-12">
+            <span>{{SelectedLog?.DateTime.toLocaleTimeString()}}</span>
+        </div>
+    </div>
     <div class="row pb-2">
         <div class="col-12">
             <span class="font-weight-bold">Nature of Event:</span>
