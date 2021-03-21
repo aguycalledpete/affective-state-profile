@@ -24,7 +24,7 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['../overview']" routerLinkActive="router-link-active" >Overview</a>
             </li>
-            <li class="nav-item" *ngIf="progressiveWebAppService.promptEvent" >
+            <li class="nav-item" *ngIf="!progressiveWebAppService.IsInstalled && progressiveWebAppService.promptEvent" >
                 <div class="d-flex h-100">
                     <button type="button" class="btn btn-success btn-sm my-auto ml-auto" (click)="installProgressiveWebApp()">Install</button>
                 </div>
