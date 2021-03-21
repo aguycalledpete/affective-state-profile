@@ -10,6 +10,7 @@ export class DataStoreService {
   
   private eventLogCollection: Observable<Array<EventLogDto>>;
   private eventLogCollectionSubject: BehaviorSubject<Array<EventLogDto>>;
+  IsReloadComplete: Boolean;
   
   constructor(
     private storage: StorageMap
@@ -18,7 +19,8 @@ export class DataStoreService {
       this.eventLogCollection = this.eventLogCollectionSubject.asObservable();
     }
     
-    reloadLogs() {
+    async reloadLogs() {
+      this.IsReloadComplete = false;
       // get local storage value and assign to variable 
       this.storage.get('EventLogCollection').subscribe((storedEventLogs: Array<EventLogDto>) => {
         //if local storage does not contain value, set one
@@ -27,6 +29,7 @@ export class DataStoreService {
           return;
         }
         this.eventLogCollectionSubject.next(storedEventLogs);
+        this.IsReloadComplete = true;
       });
     }
     

@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AddLogComponent } from './pages/add-log/add-log.component';
 import { LogsSummaryComponent } from './pages/logs-summary/logs-summary.component';
 import { LogsOverviewComponent } from './pages/logs-overview/logs-overview.component';
+import { ReloadLogsResolver } from './resolvers/reload-logs.resolver';
 
 const routes: Routes =[
   {
@@ -14,18 +15,22 @@ const routes: Routes =[
   },
   {
     path:'dashboard',
+    resolve: { reloadLogs: ReloadLogsResolver},
     component: DashboardComponent
   },
   {
     path:'add-log',
+    resolve: { reloadLogs: ReloadLogsResolver},
     component: AddLogComponent
   },
   {
     path:'summary',
+    resolve: { reloadLogs: ReloadLogsResolver},
     component: LogsSummaryComponent
   },
   {
     path:'overview',
+    resolve: { reloadLogs: ReloadLogsResolver},
     component: LogsOverviewComponent
   },
   {

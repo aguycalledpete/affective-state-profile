@@ -18,12 +18,11 @@ export class LogsSummaryComponent implements OnInit, OnDestroy {
   SelectedDate: LabelValueDto;
   DisplayModal: boolean;
   SelectedLog: EventLogDto;
+  IsPageLoaded: boolean;
   
   constructor(
-    private dataStore: DataStoreService
-    ) { 
-      this.dataStore.reloadLogs();
-    }
+    public dataStore: DataStoreService
+    ) { }
     
     ngOnDestroy(): void {
       this.Subscriptions.forEach(sub => sub.unsubscribe());
@@ -33,13 +32,13 @@ export class LogsSummaryComponent implements OnInit, OnDestroy {
       this.Subscriptions.push(
         this.dataStore.getLogs().subscribe(_logs => {
           this.Logs = _logs;
-          if(this.Logs.length === 0){
-            return;
+          if(this.Logs.length !== 0){
+            // sort logs by date
+            this.Logs.sort((a, b) => b.DateTime.getTime() - a.DateTime.getTime());
+            this.setDateDropdown();
+            this.setLogsForDate();
           }
-          // sort logs by date
-          this.Logs.sort((a, b) => b.DateTime.getTime() - a.DateTime.getTime());
-          this.setDateDropdown();
-          this.setLogsForDate();
+          this.IsPageLoaded = true;
         }));
       }
       

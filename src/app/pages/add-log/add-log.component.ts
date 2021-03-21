@@ -24,9 +24,7 @@ export class AddLogComponent implements OnInit {
   
   constructor(
     private dataStore: DataStoreService
-    ) { 
-      this.dataStore.reloadLogs();
-    }
+    ) { }
     
     ngOnInit(): void {
       this.EventLog = new EventLogDto();
@@ -46,11 +44,7 @@ export class AddLogComponent implements OnInit {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
-    
-    sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    
+        
     updateValenceLevel(isIncrease: boolean){
       if(isIncrease && this.EventLog.ValenceLevel != 10){
         this.EventLog.ValenceLevel++;

@@ -15,12 +15,11 @@ export class LogsOverviewComponent implements OnInit, OnDestroy {
   ChartOptions: any;
   Dates = new Array<LabelValueDto>();
   SelectedDate: LabelValueDto;
-  private logs: EventLogDto[];
+  Logs: EventLogDto[];
   Subscriptions = new Array<Subscription>();
+  IsPageLoaded: boolean;
   
-  constructor(private dataStore: DataStoreService) {       
-    this.dataStore.reloadLogs();
-  }
+  constructor(public dataStore: DataStoreService) {}
   
   ngOnDestroy(): void {
     this.Subscriptions.forEach(sub => sub.unsubscribe());
@@ -29,23 +28,22 @@ export class LogsOverviewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.Subscriptions.push(
       this.dataStore.getLogs().subscribe(_logs => {
-        this.logs = _logs;
-        if(this.logs.length === 0){
-          return;
+        this.Logs = _logs;
+        if(this.Logs.length !== 0){
+          // sort logs by date
+          this.Logs.sort((a, b) => b.DateTime.getTime() - a.DateTime.getTime());
+          
+          this.setDateDropdown();
+          this.setChartOptions();
+          this.setChartData();
+          this.IsPageLoaded = true;
         }
-        
-        // sort logs by date
-        this.logs.sort((a, b) => b.DateTime.getTime() - a.DateTime.getTime());
-        
-        this.setDateDropdown();
-        this.setChartOptions();
-        this.setChartData();
       }));
     }
     
     setDateDropdown(){
       // add log dates to dropdown
-      this.logs.forEach(log => {
+      this.Logs.forEach(log => {
         const dateString = log.DateTime.toLocaleDateString();
         if(this.Dates.some(date => date.name === dateString)) {
           return;
@@ -86,7 +84,7 @@ export class LogsOverviewComponent implements OnInit, OnDestroy {
     getData(isValence: boolean): number[] {
       let data = new Array<number>();
       
-      const selectedDateLogs = this.logs.filter(log => log.DateTime.toLocaleDateString() === this.SelectedDate.name);
+      const selectedDateLogs = this.Logs.filter(log => log.DateTime.toLocaleDateString() === this.SelectedDate.name);
       
       this.TimesOfTheDay.forEach(time => {
         const logsForTime = selectedDateLogs.filter(log => log.DateTime.getHours().toString() === time);
