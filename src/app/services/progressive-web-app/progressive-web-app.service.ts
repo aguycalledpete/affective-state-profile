@@ -6,12 +6,17 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class ProgressiveWebAppService {
   promptEvent: any;
+  IsInstalled: boolean;
   
   constructor(
     private swUpdate: SwUpdate
     ) { 
       window.addEventListener('beforeinstallprompt', event => {
         this.promptEvent = event;
+      });
+
+      window.addEventListener('appinstalled', (evt) => {
+        this.IsInstalled = true;
       });
       
       swUpdate.available.subscribe(event => {
