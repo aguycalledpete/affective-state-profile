@@ -1,6 +1,12 @@
 <app-header Title="Overview"></app-header>
 
-<div class="row m-0 py-3">
+<ng-container *ngIf="dataStore.IsReloadComplete && IsPageLoaded">
+    <ng-container *ngIf="Logs != null && Logs.length > 0; then overviewTemplate; else noLogsTemplate">
+    </ng-container>
+</ng-container>
+
+<ng-template #overviewTemplate>
+    <div class="row m-0 py-3">
     <div class="col-12 text-center">
     </div>
     <div class="col-12 text-center">
@@ -14,3 +20,11 @@
         <p-chart type="line" [data]="ChartData" [options]="ChartOptions"></p-chart>
     </div>
 </div>
+</ng-template>
+
+<ng-template #noLogsTemplate>
+    <div class="alert-danger m-3 p-2 rounded text-sm-center">
+        <p>Could not find any logs to provide a graph.</p>
+        <p>Please add a log using the 'Add log' feature to view this page.</p>
+    </div>
+</ng-template>
