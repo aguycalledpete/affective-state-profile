@@ -15,7 +15,7 @@ export class ProgressiveWebAppService {
       });
       
       swUpdate.available.subscribe(event => {
-        if (confirm('Would you like to update to the latest version now?')) {
+        if (confirm('There is a new version available to download, would you like to do this now? (You will be automatically updated when you next reload)')) {
           window.location.reload();
         }
       })

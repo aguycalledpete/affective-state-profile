@@ -36,8 +36,8 @@ export class LogsOverviewComponent implements OnInit, OnDestroy {
           this.setDateDropdown();
           this.setChartOptions();
           this.setChartData();
-          this.IsPageLoaded = true;
         }
+        this.IsPageLoaded = true;
       }));
     }
     
